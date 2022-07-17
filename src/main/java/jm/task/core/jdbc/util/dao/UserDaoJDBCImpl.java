@@ -16,6 +16,7 @@ public class UserDaoJDBCImpl implements UserDao {
             Statement statement = connection.createStatement();
             String useBase = "USE userbase"; //указывает базу данных на сервере
             statement.executeUpdate(useBase); //отправляет команду выбора базы
+            //new comment for test
             String sqlCommand = "CREATE TABLE Users (id BIGINT NOT NULL AUTO_INCREMENT, Name VARCHAR(255), LastName Varchar(255), Age TINYINT, PRIMARY KEY (id))";
             statement.executeUpdate(sqlCommand);
             System.out.println("Table Users created succesfully");
