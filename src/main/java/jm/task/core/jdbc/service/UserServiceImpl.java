@@ -3,7 +3,6 @@ package jm.task.core.jdbc.service;
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
 import jm.task.core.jdbc.util.dao.UserDaoJDBCImpl;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
