@@ -12,10 +12,10 @@ public class UserDaoJDBCImpl implements UserDao {
     Connection connection = null;
     public void createUsersTable() {
         try {
-            connection = new Util().getConnection();
+            connection = new Util.JDBCUtil().getConnection();
             Statement statement = connection.createStatement();
-            String useBase = "USE userbase"; //указывает базу данных на сервере
-            statement.executeUpdate(useBase); //отправляет команду выбора базы
+           // String useBase = "USE userbase"; //указывает базу данных на сервере
+            // statement.executeUpdate(useBase); //отправляет команду выбора базы
             String sqlCommand = "CREATE TABLE Users (id BIGINT NOT NULL AUTO_INCREMENT, Name VARCHAR(255), LastName Varchar(255), Age TINYINT, PRIMARY KEY (id))";
             statement.executeUpdate(sqlCommand);
             System.out.println("Table Users created succesfully");
@@ -39,10 +39,10 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public void dropUsersTable() {
         try {
-            connection = new Util().getConnection();
+            connection = new Util.JDBCUtil().getConnection();
             Statement statement = connection.createStatement();
-           String useBase = "USE userbase";
-           statement.executeUpdate(useBase);
+          // String useBase = "USE userbase";
+         //  statement.executeUpdate(useBase);
             String sqlCommand = "DROP TABLE Users";
             statement.executeUpdate(sqlCommand);
             connection.commit();
@@ -68,10 +68,10 @@ public class UserDaoJDBCImpl implements UserDao {
         PreparedStatement preparedStatement;
         String sql = "INSERT INTO Users (Name, LastName, Age) VALUES (?, ?, ?)";
         try {
-            connection = new Util().getConnection();
+            connection = new Util.JDBCUtil().getConnection();
             Statement statement = connection.createStatement();
-            String useBase = "USE userbase";
-            statement.executeUpdate(useBase);
+          //  String useBase = "USE userbase";
+           // statement.executeUpdate(useBase);
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, lastName);
@@ -99,10 +99,10 @@ public class UserDaoJDBCImpl implements UserDao {
         PreparedStatement preparedStatement;
         String sql = "DELETE FROM Users WHERE ID=?";
         try {
-            connection = new Util().getConnection();
+            connection = new Util.JDBCUtil().getConnection();
             Statement statement = connection.createStatement();
-            String useBase = "USE userbase";
-            statement.executeUpdate(useBase);
+           // String useBase = "USE userbase";
+           // statement.executeUpdate(useBase);
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
@@ -127,10 +127,10 @@ public class UserDaoJDBCImpl implements UserDao {
     public List<User> getAllUsers() {
         List<User> UsersList = new ArrayList<>();
         try {
-            connection = new Util().getConnection();
+            connection = new Util.JDBCUtil().getConnection();
             Statement statement = connection.createStatement();
-            String useBase = "USE userbase";
-            statement.executeUpdate(useBase);
+           // String useBase = "USE userbase";
+           // statement.executeUpdate(useBase);
             String SQL = "SELECT * FROM USERS";
             ResultSet resultSet = statement.executeQuery(SQL);
             connection.commit();
@@ -163,10 +163,10 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public void cleanUsersTable() {
         try {
-            connection = new Util().getConnection();
+            connection = new Util.JDBCUtil().getConnection();
             Statement statement = connection.createStatement();
-            String useBase = "USE userbase";
-            statement.executeUpdate(useBase);
+           // String useBase = "USE userbase";
+           // statement.executeUpdate(useBase);
             String SQL = "DELETE FROM USERS";
             statement.executeUpdate(SQL);
             connection.commit();
