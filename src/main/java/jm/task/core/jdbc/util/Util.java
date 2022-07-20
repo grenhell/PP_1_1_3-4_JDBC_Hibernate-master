@@ -11,6 +11,7 @@ import org.hibernate.service.ServiceRegistry;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Properties;
 
 public class Util {
@@ -20,7 +21,7 @@ public class Util {
     public static final String DB_PASSWORD = "controll";
 
     public static class JDBCUtil {
-        public Connection getConnection() throws SQLException {
+        public static Connection getConnection() throws SQLException {
             Connection connection = null;
             try {
                 connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
@@ -32,10 +33,27 @@ public class Util {
             }
             return connection;
         }
+        public static void closeConnection (Connection connection) {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e){
+                    e.printStackTrace();
+                }
+            }
+        }
+        public static <T extends Statement> void  closeStatement  (T statement) {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e){
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     public static class HibernateUtil {
-        private static StandardServiceRegistry registry;
         public static SessionFactory sessionFactory;
 
         public static SessionFactory getSessionFactory() {
@@ -57,9 +75,7 @@ public class Util {
                     serviceRegistry = new StandardServiceRegistryBuilder()
                             .applySettings(configuration.getProperties()).build();
                     sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-                    System.out.println("Connection OK");
                 } catch (Exception e) {
-                    System.out.println("Connection ERROR");
                     e.printStackTrace();
                     if (serviceRegistry != null) {
                         StandardServiceRegistryBuilder.destroy(serviceRegistry);
@@ -69,12 +85,7 @@ public class Util {
             }
             return sessionFactory;
 
-            }
-        /*public static void shutdown() {
-            if (registry != null) {
-                StandardServiceRegistryBuilder.destroy(registry);
-            }
-        }*/
+        }
 
     }
 }
