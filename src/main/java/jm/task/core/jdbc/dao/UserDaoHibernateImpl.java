@@ -34,7 +34,6 @@ public class UserDaoHibernateImpl implements UserDao {
            Query query = session.createSQLQuery(sql).addEntity(User.class);
            query.executeUpdate();
            tx1.commit();
-           session.close();
        } catch (Exception e) {
            tx1.rollback();
            e.printStackTrace();
